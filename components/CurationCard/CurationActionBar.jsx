@@ -1,19 +1,57 @@
 import { useState, useEffect, useRef } from "react";
-
+import ReactTooltip from "react-tooltip";
 
 import CurationActionBarButton from "./CurationActionBarButton";
 import Dropdown from '../Dropdown'
 import DropdownItem from "../DropdownItem";
+import copyToClipboard from "../global/copyToClipboard";
+import getCurrentURL from "../global/getCurrentURL";
 
 
 
-const CurationActionBar = ( { icons } ) => {
+const CurationActionBar = ( {data} ) => {
 
     const [dropdownOpen, setDropdownOpen] = useState(false)
+    const [isAuthor, setIsAuthor] = useState(true)
+    const [isLiked, setIsLiked] = useState(false)
     
     const toggleDropDown = () => {setDropdownOpen(!dropdownOpen)}
 
-    const isAuthor = true
+    const toggleLike = () => {setIsLiked(!isLiked)}
+
+    const actions = [
+        {
+            id: 1,
+            iconClass: "material-icons text-3xl",
+            icon: "link",
+            label: "Link",
+            handler : getCurrentURL(),
+        },
+        {
+            id: 2,
+            iconClass: "material-icons text-3xl",
+            icon: "bookmark",
+            label: "Save",
+        },
+        {
+            id: 3,
+            iconClass: "material-icons text-3xl",
+            icon: "bookmark_border",
+            label: "Unsave",
+        },
+        {
+            id: 4,
+            iconClass: "material-icons text-3xl",
+            icon: "edit",
+            label: "Edit",
+        },
+        {
+            id: 5,
+            iconClass: "material-icons text-3xl",
+            icon: "thumb_up",
+            label: " Like",
+        },
+    ]
 
     function useOutsideAlerter(ref) {
         useEffect(() => {
@@ -45,33 +83,58 @@ const CurationActionBar = ( { icons } ) => {
                 {/* <span class="material-icons text-6xl">link</span> */}
                 {/* <i class="fa-solid fa-link"></i> */}
 
-                {icons.map((icon) => {
-                    return (
-                    <CurationActionBarButton key={icon.id}>
-                        <i className={`${icon.iconClass}`}>{icon.icon}</i>
-                        <p className="text-xl">{icon.label}</p>
-                    </CurationActionBarButton>
-                    )
-                })}
-                
-                <CurationActionBarButton key="more_horiz">  
-                    <div ref={moreWrapperRef} onClick={toggleDropDown}>
-                        <i className={"material-icons text-3xl flex justify-center items-center"}>{"more_horiz"}</i>
-                        <p className="text-xl"></p>
-                        <div className="relative">
-                            { dropdownOpen &&
-                                (
-                                <>
-                                <Dropdown icon="delete" iconClass="material-icons">
-                                    <DropdownItem icon={"delete"} iconClass={"material-icons"}> Delete </DropdownItem>
-                                    <DropdownItem icon={"settings"} iconClass={"material-icons"}> Settings </DropdownItem>
-                                </Dropdown>
-                                </>
-                                )
-                            }
-                        </div>
+                <div onClick={getCurrentURL()} className="frc">
+                    <CurationActionBarButton >
+                            <i className={"material-icons text-3xl"}>{"link"}</i>
+                            <p className="text-xl">{"Link"}</p>
+                    </CurationActionBarButton>  
+                </div>
+
+                {isLiked ? (
+                    <div onClick={toggleLike} className="frc">
+                        <CurationActionBarButton >
+                                <i className={"material-icons text-3xl"}>{"thumb_up"}</i>
+                                <p className="text-xl">{"Like"}</p>
+                        </CurationActionBarButton>
                     </div>
-                </CurationActionBarButton>
+                    ) : (
+                    <div onClick={toggleLike} className="frc">
+                        <CurationActionBarButton >
+                                <i className={"material-icons-outlined text-3xl"}>{"thumb_up"}</i>
+                                <p className="text-xl">{"Unlike"}</p>
+                        </CurationActionBarButton>
+                    </div>
+                    )
+                }
+                
+
+                {isAuthor &&
+                    <div onClick={getCurrentURL()} className="frc">
+                        <CurationActionBarButton >
+                                <i className={"material-icons text-3xl"}>{"edit"}</i>
+                                <p className="text-xl">{"Edit"}</p>
+                        </CurationActionBarButton>
+                    </div>
+                }
+                
+                    <div ref={moreWrapperRef} onClick={toggleDropDown}>
+                        <CurationActionBarButton key="more_horiz">  
+                                <i className={"material-icons text-3xl flex justify-center items-center"}>{"more_horiz"}</i>
+                                <p className="text-xl"></p>
+                                <div className="relative">
+                                    { dropdownOpen &&
+                                        (
+                                        <>
+                                        <Dropdown icon="delete" iconClass="material-icons">
+                                            <DropdownItem icon={"delete"} iconClass={"material-icons"}> Delete </DropdownItem>
+                                            <DropdownItem icon={"settings"} iconClass={"material-icons"}> Settings </DropdownItem>
+                                        </Dropdown>
+                                        </>
+                                        )
+                                    }
+                                </div>
+                        </CurationActionBarButton>
+                    </div>
 
             </div>
         </div>
