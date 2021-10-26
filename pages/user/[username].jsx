@@ -3,7 +3,7 @@ import { useRouter } from "next/dist/client/router"
 import { Fragment } from "react"
 import Head from "next/dist/shared/lib/head"
 
-import CurationCard from "../../components/CurationCard"
+import CurationCard from "../../components/CurationCard/CurationCard"
 
 // Server Side Rendering
 // export async function getServerSideProps(context) {
