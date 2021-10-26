@@ -1,10 +1,13 @@
 import React from "react";
 import Head from "next/dist/shared/lib/head";
 import { useState } from "react";
+import { useRouter } from "next/dist/client/router";
 import login from "../services/auth/login";
 import storeJWT from "../services/auth/storeJWT";
 
 export default function Login() {
+  const router = useRouter()
+
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
@@ -31,15 +34,22 @@ export default function Login() {
     storeJWT(response.jwt);
 
     console.log("Response to Login", response);
+    navigateToDashboard()
   };
+
+  const navigateToDashboard = () => {
+    const username = credentials.username;
+    router.push("/dashboard/"+username);
+
+  }
 
   return (
     <>
       <Head>
-        <title>Register</title>
+        <title>Log In</title>
       </Head>
       <div className="flex flex-col items-center justify-center">
-        <div className="p-10 text-white rounded text-center bg-gradient-to-br from-purple-600 via-blue-500 to-green-400">
+        <div className="p-10 text-center text-white rounded bg-gradient-to-br from-purple-600 via-blue-500 to-green-400">
           <h1 className="text-5xl font-noto-serif">
             An Adequately Made Login Page
           </h1>
@@ -49,7 +59,7 @@ export default function Login() {
             placeholder="username"
             value={credentials.username}
             onChange={handleFormChange}
-            className="m-4 mx-auto p-2 block text-black"
+            className="block p-2 m-4 mx-auto text-black"
           />
           <input
             type="text" // TODO: change this to password
@@ -57,11 +67,11 @@ export default function Login() {
             placeholder="password"
             value={credentials.password}
             onChange={handleFormChange}
-            className="m-4 mx-auto p-2 block text-black"
+            className="block p-2 m-4 mx-auto text-black"
           />
           <button
             onClick={handleSubmitClick}
-            className="m-4 p-2 px-4 rounded-md bg-green-400 text-white"
+            className="p-2 px-4 m-4 text-white bg-green-400 rounded-md"
           >
             LOGIN
           </button>
