@@ -1,23 +1,42 @@
-import { useState, useEffect, useRef } from "react";
-import ReactTooltip from "react-tooltip";
+import React, { useState, useEffect, useRef } from "react";
+import { Tooltip } from "@mui/material";
+import { useRouter } from "next/dist/client/router";
 
 import CurationActionBarButton from "./CurationActionBarButton";
 import Dropdown from '../Dropdown'
 import DropdownItem from "../DropdownItem";
 import copyToClipboard from "../global/copyToClipboard";
 import getCurrentURL from "../global/getCurrentURL";
+import HtmlTooltip from "../global/materialHTMLTooltip";
+import getUrlFromCurationId from "../global/getUrlFromCurationId";
 
-
-
-const CurationActionBar = ( {data} ) => {
+const CurationActionBar = ( {likes, setLikes, curation} ) => {
 
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const [isAuthor, setIsAuthor] = useState(true)
     const [isLiked, setIsLiked] = useState(false)
+    const [linkHoverText, setLinkHoverText] = useState("Click to Copy")
+
+    const router = useRouter()
     
     const toggleDropDown = () => {setDropdownOpen(!dropdownOpen)}
 
-    const toggleLike = () => {setIsLiked(!isLiked)}
+    const toggleLike = () => {
+        setIsLiked(!isLiked);
+
+        isLiked ? setLikes(likes+1) : setLikes(likes-1);
+    }
+
+    
+    const handleLinkClick = () => {
+
+        copyToClipboard(getUrlFromCurationId(curation.id));
+
+        setLinkHoverText("Link Copied!")
+        setTimeout(() => {
+            setLinkHoverText("Click to Copy")
+        }, 3000);
+    }
 
     const actions = [
         {
@@ -62,8 +81,7 @@ const CurationActionBar = ( {data} ) => {
                 if (ref.current && !ref.current.contains(event.target)) {
                     setDropdownOpen(false);
                 }
-            }
-    
+            }    
             // Bind the event listener
             document.addEventListener("mousedown", handleClickOutside);
             return () => {
@@ -78,17 +96,18 @@ const CurationActionBar = ( {data} ) => {
 
     return (
         <div className="flex flex-row items-start justify-between">
-            <div className="flex flex-row space-x-4 text-6xl">
-                {/* <i class="lni lni-link"></i> */}
-                {/* <span class="material-icons text-6xl">link</span> */}
-                {/* <i class="fa-solid fa-link"></i> */}
-
-                <div onClick={getCurrentURL()} className="frc">
-                    <CurationActionBarButton >
-                            <i className={"material-icons text-3xl"}>{"link"}</i>
-                            <p className="text-xl">{"Link"}</p>
-                    </CurationActionBarButton>  
-                </div>
+            <div className="flex flex-row flex-wrap space-x-4 text-6xl">
+                <HtmlTooltip title={
+                    <p className="text-lg">{linkHoverText}</p>
+                } arrow placement="top">
+                    <div onClick={handleLinkClick} className="ml-4 frc">
+                        <CurationActionBarButton >
+                                <i className={"material-icons text-3xl"}>{"link"}</i>
+                                <p className="text-xl">{"Link"}</p>
+                        </CurationActionBarButton>  
+                    </div>
+                </HtmlTooltip>
+                
 
                 {isLiked ? (
                     <div onClick={toggleLike} className="frc">
@@ -109,7 +128,7 @@ const CurationActionBar = ( {data} ) => {
                 
 
                 {isAuthor &&
-                    <div onClick={getCurrentURL()} className="frc">
+                    <div className="frc">
                         <CurationActionBarButton >
                                 <i className={"material-icons text-3xl"}>{"edit"}</i>
                                 <p className="text-xl">{"Edit"}</p>
