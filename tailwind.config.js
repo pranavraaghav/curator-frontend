@@ -14,9 +14,13 @@ module.exports = {
         bg: '#F0F0F0',
         hover: '#F0F0F0',
         block: '#FFFFFF',
+        sidebar: '#FBFBFB ',
+        ash: '#A8A8A8',
+        coal: '#474747',
+        whisper: '#E5E5E5',
       },
       spacing:{
-        'expanded' : '28.25rem', //sidebar
+        'expanded' : '26.25rem', //sidebar
         'folded': '8.75rem'
       }
     },
