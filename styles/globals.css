@@ -14,6 +14,10 @@
     
     /* Flex Row Center */
     .frc {
-        @apply flex flex-row items-center justify-center
+        @apply flex flex-row items-center justify-center;
+    }
+
+    .heading {
+        @apply my-4 mt-16 text-5xl font-bold tracking-wider text-primary font-noto-serif lg:text-7xl;
     }
 }
