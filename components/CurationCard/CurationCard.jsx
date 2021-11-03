@@ -9,15 +9,12 @@ import isMobileBrowser from "../global/isMobileBrowser";
 
 const CurationCard = ( {curation} ) => {
     const [isSaved, setIsSaved] = useState(false)
-    const [likes, setLikes] = useState(curation.likeCount)
+    const [likes, setLikes] = useState(curation.like_count)
     const [maxDescLength, setMaxDescLength] = useState(120)
     const router = useRouter()
 
     useEffect(() => {
         setMaxDescLength(isMobileBrowser() ? 120 : 320)
-        return () => {
-            
-        }
     }, [])
     
     const curationUrl = getUrlFromCurationId(curation.id)
@@ -36,13 +33,13 @@ const CurationCard = ( {curation} ) => {
             >
                 <div onClick={handleClick} className="space-y-4 cursor-pointer ">
                     <h1 className="text-4xl font-extrabold font-noto-sans ">{curation.title}</h1>
-                    <h2 className="flex items-center justify-start text-lg font-semibold">{curation.createdAt} | {curation.blocks.length} curations | {likes} <span className="m-2 text-lg material-icons">thumb_up</span></h2>
+                    <h2 className="flex items-center justify-start text-lg font-semibold">{curation.createdAt} | {likes} <span className="m-2 text-lg material-icons">thumb_up</span></h2>
                     <div className="text-lg">
-                        {curation.desc.length > maxDescLength ? 
+                        {curation.description.length > maxDescLength ? 
                         (
-                            <p>{curation.desc.substring(0,maxDescLength)}...</p>
+                            <p>{curation.description.substring(0,maxDescLength)}...</p>
                         ) : 
-                            <p>{curation.desc}</p>
+                            <p>{curation.description}</p>
                         }
                     </div>
                 </div>
