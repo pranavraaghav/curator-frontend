@@ -54,16 +54,11 @@ export default function Login() {
     }
 
     storeJWT(response.jwt);
+    sessionStorage.setItem("username", credentials.username);
 
     console.log("Response to Login", response);
-    navigateToDashboard()
+    router.push("/dashboard/");
   };
-
-  const navigateToDashboard = () => {
-    const username = credentials.username;
-    router.push("/dashboard/"+username);
-
-  }
 
   return (
     <>

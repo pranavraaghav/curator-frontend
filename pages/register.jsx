@@ -11,7 +11,8 @@ import signup from "../services/auth/signup";
 import AuthErrorAlert from "../components/AuthErrorAlert";
 
 export default function Register() {
-
+  const router = useRouter()
+  
   const [errors, setErrors] = useState({
     signUpError: false,
     tncError: false,
@@ -69,8 +70,10 @@ export default function Register() {
     }
 
     storeJWT(response.jwt);
+    sessionStorage.setItem("username", credentials.username);
 
     console.log("Response to Signup in register", response);
+    router.push("/dashboard/");
   };
 
   return (
