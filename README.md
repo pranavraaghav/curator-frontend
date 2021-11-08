@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://www.gatsbyjs.com">
+  <a href="">
     <img alt="Curator" src="./static/Logo.svg" width="120" />
   </a>
 </p>
