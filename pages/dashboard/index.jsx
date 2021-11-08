@@ -5,14 +5,17 @@ import Loader from "react-loader-spinner";
 
 import CurationCard from "../../components/CurationCard/CurationCard";
 import DashboardActionBar from "../../components/Dashboard/DashboardActionBar";
-import LoadingOverlay from "../../components/LoadingOverlay";
+import LoadingOverlay from "../../components/common/LoadingOverlay";
 import getCurations from "../../services/dashboard/getCurations";
 
 function Dashboard() {
   //Be wary of Loading state getting locked
   const [isLoading, setIsLoading] = useState(true);
   const [dashboardData, setDashboardData] = useState();
-  const [credentials, setCredentials] = useState();
+  const [credentials, setCredentials] = useState({
+    jwt: null,
+    username: null,
+  });
 
   useEffect(() => {
     async function fetchDashboardData() {
@@ -86,15 +89,13 @@ function Dashboard() {
       <Head>
         <title> {credentials && credentials.username} | Dashboard</title>
       </Head>
-      {isLoading ? (
-        <LoadingOverlay>
-          <Loader type="Puff" color="#324376" />
-          <h1 className="p-4 text-3xl font-bold font-noto-serif text-primary">
-            Getting everything in place...
-          </h1>
-        </LoadingOverlay>
-      ) : (
-        <div className="w-full bg-bg">
+          {isLoading && 
+            <LoadingOverlay>
+                <Loader type="Puff" color="#324376"/>
+                <h1 className="p-4 text-3xl font-bold font-noto-serif text-primary">Getting everything in place...</h1>
+            </LoadingOverlay>
+          }
+        <div className="w-full min-h-screen bg-bg">
           <div className="flex flex-col items-start justify-start p-4 lg:mr-96 lg:ml-20 bg-bg">
             <h1 className="heading">Your Dashboard</h1>
 
@@ -103,7 +104,7 @@ function Dashboard() {
               {/* <div className="w-16 h-16 bg-gray-500 rounded-full"></div> */}
 
               <h2 className="ml-2 text-2xl text-primary font-noto-serif">
-                {credentials.username}
+                {credentials && credentials.username}
               </h2>
             </div>
 
@@ -120,7 +121,7 @@ function Dashboard() {
             )}
           </div>
         </div>
-      )}
+      )
     </Fragment>
   );
 }
