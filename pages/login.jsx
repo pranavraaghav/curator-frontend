@@ -6,13 +6,12 @@ import Link from "next/link";
 import { TextField } from "@mui/material";
 
 import login from "../services/auth/login";
-import storeJWT from "../services/auth/storeJWT";
-import AuthErrorAlert from "../components/AuthErrorAlert";
+import storeCredentials from "../services/auth/storeCredentials";
+import AuthErrorAlert from "../components/Auth/AuthErrorAlert";
+import navigateToDashboard from "../services/Hooks/navigateToDashboard";
 
 export default function Login() {
-  const router = useRouter()
-
-  
+    
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
@@ -53,11 +52,10 @@ export default function Login() {
       return;
     }
 
-    storeJWT(response.jwt);
-    sessionStorage.setItem("username", credentials.username);
+    storeCredentials(response.jwt, credentials.username);
 
     console.log("Response to Login", response);
-    router.push("/dashboard/");
+    navigateToDashboard();
   };
 
   return (
