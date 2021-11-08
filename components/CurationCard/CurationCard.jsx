@@ -4,8 +4,8 @@ import { useRouter } from "next/dist/client/router";
 
 import CurationActionBar from "./CurationActionBar";
 import { cardVariants } from "../global/cardVariants";
-import getUrlFromCurationId from "../global/getUrlFromCurationId";
-import isMobileBrowser from "../global/isMobileBrowser";
+import getUrlFromCurationId from "../../services/Hooks/makeUrlFromCurationId";
+import isMobileBrowser from "../../services/Hooks/isMobileBrowser";
 
 const CurationCard = ( {curation} ) => {
     const [isSaved, setIsSaved] = useState(false)

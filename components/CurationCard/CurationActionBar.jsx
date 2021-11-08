@@ -5,10 +5,10 @@ import { useRouter } from "next/dist/client/router";
 import CurationActionBarButton from "./CurationActionBarButton";
 import Dropdown from '../Dropdown'
 import DropdownItem from "../DropdownItem";
-import copyToClipboard from "../global/copyToClipboard";
-import getCurrentURL from "../global/getCurrentURL";
-import HtmlTooltip from "../global/materialHTMLTooltip";
-import getUrlFromCurationId from "../global/getUrlFromCurationId";
+import copyToClipboard from "../../services/Hooks/copyToClipboard";
+import getCurrentURL from "../../services/Hooks/makeCurrentURL";
+import HtmlTooltip from "../global/MaterialHTMLTooltip";
+import getUrlFromCurationId from "../../services/Hooks/makeUrlFromCurationId";
 
 const CurationActionBar = ( {likes, setLikes, curation} ) => {
 
