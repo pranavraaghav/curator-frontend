@@ -6,12 +6,13 @@ import Link from "next/link";
 import { TextField } from "@mui/material";
 import Checkbox from '@mui/material/Checkbox';
 
-import storeJWT from "../services/auth/storeJWT";
+import storeCredentials from "../services/auth/storeCredentials";
 import signup from "../services/auth/signup";
-import AuthErrorAlert from "../components/AuthErrorAlert";
+import AuthErrorAlert from "../components/Auth/AuthErrorAlert";
+import navigateToDashboard from "../services/Hooks/navigateToDashboard";
 
 export default function Register() {
-  const router = useRouter()
+
   
   const [errors, setErrors] = useState({
     signUpError: false,
@@ -69,11 +70,11 @@ export default function Register() {
       return;
     }
 
-    storeJWT(response.jwt);
-    sessionStorage.setItem("username", credentials.username);
+    storeCredentials(response.jwt, credentials.username);
+    
 
     console.log("Response to Signup in register", response);
-    router.push("/dashboard/");
+    navigateToDashboard();
   };
 
   return (
@@ -149,7 +150,13 @@ export default function Register() {
               />
 
               <div className="space-x-2 frc">
-                <Checkbox id="tnc" checked={credentials.tnc} onChange={handleFormChange} name="tnc" sx={{ '& .MuiSvgIcon-root': { fontSize: 32 } }}/>
+                <Checkbox 
+                id="tnc" 
+                value={credentials.tnc}
+                onChange={handleFormChange} 
+                name="tnc" 
+                sx={{ '& .MuiSvgIcon-root': { fontSize: 32 } }}
+                />
                 <h3 className="text-base text-coal lg:text-xl">I agree to the <a className="underline" href="https://en.wikipedia.org/wiki/Terms_of_service">Terms and Conditions</a></h3> 
               </div>
 
