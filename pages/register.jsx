@@ -12,7 +12,7 @@ import AuthErrorAlert from "../components/Auth/AuthErrorAlert";
 import navigateToDashboard from "../services/Hooks/navigateToDashboard";
 
 export default function Register() {
-
+  const router = useRouter()
   
   const [errors, setErrors] = useState({
     signUpError: false,
@@ -74,7 +74,7 @@ export default function Register() {
     
 
     console.log("Response to Signup in register", response);
-    navigateToDashboard();
+    navigateToDashboard(router);
   };
 
   return (

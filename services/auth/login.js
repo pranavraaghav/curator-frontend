@@ -11,6 +11,9 @@ const login = async (username, password) => {
     },
   });
 
+  if(response.status != 200) {
+    throw new Error("Non 200 response code")
+  }
   return await response.json();
 };
 

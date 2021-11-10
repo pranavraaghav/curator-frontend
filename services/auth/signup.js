@@ -12,6 +12,9 @@ const signup = async (email, username, password) => {
     },
   });
 
+  if(response.status != 201) {
+    throw new Error("Non 201 response code")
+  }
   return response.json();
 };
 

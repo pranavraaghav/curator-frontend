@@ -11,6 +11,7 @@ import AuthErrorAlert from "../components/Auth/AuthErrorAlert";
 import navigateToDashboard from "../services/Hooks/navigateToDashboard";
 
 export default function Login() {
+  const router = useRouter();
     
   const [credentials, setCredentials] = useState({
     username: "",
@@ -55,7 +56,7 @@ export default function Login() {
     storeCredentials(response.jwt, credentials.username);
 
     console.log("Response to Login", response);
-    navigateToDashboard();
+    navigateToDashboard(router);
   };
 
   return (
