@@ -22,7 +22,6 @@ module.exports = {
       spacing:{
         'expanded' : '26.25rem', //sidebar
         'folded': '8.75rem',
-        'auth-form': '50rem', //auth pages
       }
     },
 

@@ -84,7 +84,7 @@ export default function Register() {
       </Head>
       <div className="w-full h-screen bg-blue-100 fcc">
         <div className="flex flex-col items-center justify-center ">
-          <div className="flex flex-col items-center justify-between h-auto p-10 m-4 text-center text-white rounded lg:m-0 lg:w-auth-form bg-sidebar">
+          <div className="flex flex-col items-center justify-between h-auto p-10 m-4 text-center text-white rounded lg:m-0 lg:w-1/2 bg-sidebar">
             
             <div className="my-4 space-y-4 lg:mb-8">
                 <h1 className="text-3xl font-bold lg:text-5xl font-noto-serif text-primary">
