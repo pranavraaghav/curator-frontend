@@ -1,8 +1,8 @@
-const storeCredentials = ( jwt, username ) => {
+const storeCredentials = (jwt, username) => {
   // Setting jwt in sessionStorage
-  sessionStorage.setItem("jwt", jwt);
+  sessionStorage.setItem("jwt", jwt)
 
-  sessionStorage.setItem("username", username);
-};
+  sessionStorage.setItem("username", username)
+}
 
-export default storeCredentials;
+export default storeCredentials
