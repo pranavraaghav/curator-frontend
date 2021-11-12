@@ -1,6 +1,6 @@
 import React from "react"
 import Head from "next/dist/shared/lib/head"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/dist/client/router"
 import Link from "next/link"
 import { TextField } from "@mui/material"
@@ -9,7 +9,6 @@ import Checkbox from "@mui/material/Checkbox"
 import storeCredentials from "../services/auth/storeCredentials"
 import signup from "../services/auth/signup"
 import AuthErrorAlert from "../components/Auth/AuthErrorAlert"
-import navigateToDashboard from "../services/Hooks/navigateToDashboard"
 
 export default function Register() {
   const router = useRouter()
@@ -26,6 +25,11 @@ export default function Register() {
     initial: true,
     tnc: false,
   })
+
+  useEffect(() => {
+    // https://nextjs.org/docs/api-reference/next/router#routerprefetch
+    router.prefetch("/dashboard")
+  }, [])
 
   const handleFormChange = (e) => {
     const { id, value } = e.target
@@ -74,7 +78,7 @@ export default function Register() {
     storeCredentials(response.jwt, credentials.username)
 
     console.log("Response to Signup in register", response)
-    navigateToDashboard(router)
+    router.push("/dashboard")
   }
 
   return (
