@@ -15,7 +15,6 @@ function EditableCuration({ initState, submitHandler }) {
       title: "",
       description: "",
       url: "",
-      key: uuidv4(),
     }
     setBlocks([...blocks, block]) // update state
   }
@@ -108,6 +107,9 @@ function EditableCuration({ initState, submitHandler }) {
                 ref={provided.innerRef}
               >
                 {blocks.map((block, idx) => {
+                  if (!block.key) {
+                    block.key = uuidv4()
+                  }
                   return (
                     <Draggable
                       key={block.key}
