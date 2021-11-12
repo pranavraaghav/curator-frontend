@@ -4,20 +4,12 @@ import { v4 as uuidv4 } from "uuid"
 import { Button } from "@mui/material"
 import EditableBlockCard from "../../../components/Block/EditableBlockCard"
 import { postCuration } from "../../../services/curation/postCuration"
+import * as yup from "yup"
 
 function CreateCuration() {
   const [blocks, setBlocks] = useState([])
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
-
-  // Title, Description and Blocks have their own unique handlers
-  const changeTitleHandler = (event) => {
-    setTitle(event.target.value)
-  }
-
-  const changeDescriptionHandler = (event) => {
-    setDescription(event.target.value)
-  }
 
   const addNewBlock = () => {
     const block = {
@@ -29,6 +21,18 @@ function CreateCuration() {
     setBlocks([...blocks, block]) // update state
   }
 
+  const deleteBlocksHandler = (key) => {
+    setBlocks(blocks.filter((block) => block.key !== key))
+  }
+
+  // Title, Description and Blocks have their own unique handlers
+  const changeTitleHandler = (event) => {
+    setTitle(event.target.value)
+  }
+  const changeDescriptionHandler = (event) => {
+    setDescription(event.target.value)
+  }
+
   const updateBlocksHandler = (data) => {
     const idx = blocks.findIndex((block) => block.key === data.key) // find index of changed data object
 
@@ -38,26 +42,48 @@ function CreateCuration() {
     setBlocks(blocksCopy) // update state
   }
 
-  const deleteBlocksHandler = (key) => {
-    setBlocks(blocks.filter((block) => block.key !== key))
-  }
-
   const submitCurationHandler = async () => {
-    // TODO: Add URL validation for each block.
+    // Validation Schema
+    const blockSchema = yup
+      .object({
+        title: yup.string().required(),
+        url: yup.string().url().notRequired(),
+        description: yup.string().notRequired(),
+      })
+      .noUnknown(true)
+
+    const schema = yup
+      .object({
+        title: yup.string().required(),
+        description: yup.string().notRequired(),
+        blocks: yup.array().of(blockSchema).notRequired(),
+      })
+      .noUnknown(true)
+
     const data = {
       title: title,
       description: description,
       blocks: blocks,
     }
 
-    // removing keys from each block before making POST request
-    data.blocks.forEach((item) => {
-      if (item["key"]) delete item["key"]
-    })
+    // Validate against schema
+    try {
+      var validatedData = await schema.validate(data) // throws error when invalid
+    } catch (error) {
+      console.error(
+        "Failed schema validation at create.jsx with errror: ",
+        error
+      )
+    }
 
-    console.log("Posting the following: ", data)
-
-    await postCuration(data)
+    // Post to server
+    try {
+      // console.log("Posting the following: ", validatedData)
+      const response = await postCuration(validatedData)
+      // console.log(response)
+    } catch (error) {
+      console.error("failed postCuration with error: ", error)
+    }
   }
 
   return (

@@ -33,6 +33,7 @@ function EditableBlockCard({ data, deleteHandler, updateHandler }) {
           defaultValue={data.title}
         />
 
+        {/* TODO: Add live validation */}
         {/* URL */}
         <label htmlFor="url" className="font-bold text-lg font-noto-serif">
           URL
