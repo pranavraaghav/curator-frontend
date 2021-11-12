@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 function Sidebar({ toggleSidebar, sidebarActive }) {
   return (
     <aside
-      className={`fixed right-0 drop-shadow-xl flex flex-col bg-sidebar rounded-l-3xl h-full items-center justify-between top-0 transition-all duration-700 ease-in-out overflow-hidden ${
+      className={`z-20 fixed right-0 drop-shadow-xl flex flex-col bg-sidebar rounded-l-3xl h-full items-center justify-between top-0 transition-all duration-700 ease-in-out overflow-hidden ${
         sidebarActive ? "w-72 lg:w-expanded" : "w-0 lg:w-folded "
       }`}
     >
