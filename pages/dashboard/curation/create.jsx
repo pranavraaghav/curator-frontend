@@ -5,11 +5,17 @@ import { Button } from "@mui/material"
 import EditableBlockCard from "../../../components/Block/EditableBlockCard"
 import { postCuration } from "../../../services/curation/postCuration"
 import * as yup from "yup"
+import { useRouter } from "next/dist/client/router"
+
+// Drag and drop stuff
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
 function CreateCuration() {
   const [blocks, setBlocks] = useState([])
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
+
+  const router = useRouter()
 
   const addNewBlock = () => {
     const block = {
@@ -83,13 +89,27 @@ function CreateCuration() {
       // console.log(response)
     } catch (error) {
       console.error("failed postCuration with error: ", error)
+      return
     }
+
+    // Redirect to dashboard
+    router.push("/dashboard")
+  }
+
+  const handleOnDragEnd = (result) => {
+    if (!result.destination) return
+
+    const items = Array.from(blocks)
+    const [reorderedItem] = items.splice(result.source.index, 1)
+    items.splice(result.destination.index, 0, reorderedItem)
+
+    setBlocks(items)
   }
 
   return (
     <Fragment>
       <div className="w-full min-h-screen bg-bg">
-        <div className="p-4 w-full lg:w-8/12 lg:ml-36 lg:mr-auto">
+        <div className="p-4 w-full lg:w-1/2 lg:ml-36 lg:mr-auto">
           {/* Title */}
           <label
             htmlFor="title"
@@ -139,18 +159,45 @@ function CreateCuration() {
 
           {/* Block Container */}
           {blocks.length !== 0 && (
-            <div className="flex flex-col gap-4 py-6">
-              {blocks.map((block, idx) => {
-                return (
-                  <EditableBlockCard
-                    key={block.key}
-                    data={block}
-                    deleteHandler={() => deleteBlocksHandler(block.key)}
-                    updateHandler={updateBlocksHandler}
-                  />
-                )
-              })}
-            </div>
+            <DragDropContext onDragEnd={handleOnDragEnd}>
+              <Droppable droppableId="blocks">
+                {(provided) => (
+                  <ul
+                    className="flex flex-col gap-4 py-6"
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                  >
+                    {blocks.map((block, idx) => {
+                      return (
+                        <Draggable
+                          key={block.key}
+                          draggableId={block.key}
+                          index={idx}
+                        >
+                          {(provided) => (
+                            <li
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              ref={provided.innerRef}
+                            >
+                              {/* Block */}
+                              <EditableBlockCard
+                                data={block}
+                                deleteHandler={() =>
+                                  deleteBlocksHandler(block.key)
+                                }
+                                updateHandler={updateBlocksHandler}
+                              />
+                            </li>
+                          )}
+                        </Draggable>
+                      )
+                    })}
+                    {provided.placeholder}
+                  </ul>
+                )}
+              </Droppable>
+            </DragDropContext>
           )}
 
           {/* Button to submit curation */}
