@@ -8,6 +8,7 @@ import DashboardActionBar from "../../components/Dashboard/DashboardActionBar"
 import LoadingOverlay from "../../components/common/LoadingOverlay"
 import getCurations from "../../services/dashboard/getCurations"
 import { deleteCuration } from "../../services/curation/deleteCuration"
+import sortDataByTimestamp from "../../services/Hooks/sortDataByTimestamp"
 
 function Dashboard() {
   //Be wary of Loading state getting locked
@@ -32,7 +33,9 @@ function Dashboard() {
        * If API fetch fails, then default to local mock data
        */
       try {
-        setDashboardData(await getCurations(jwt))
+        const response = await getCurations(jwt)
+        const sortedData = sortDataByTimestamp(response, "created_at")
+        setDashboardData(sortedData)
       } catch (error) {
         setDashboardData(data)
         console.log("Error fetching data ", error)
