@@ -1,6 +1,6 @@
 import React from "react"
 import Head from "next/dist/shared/lib/head"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/dist/client/router"
 import Link from "next/link"
 import { TextField } from "@mui/material"
@@ -8,7 +8,6 @@ import { TextField } from "@mui/material"
 import login from "../services/auth/login"
 import storeCredentials from "../services/auth/storeCredentials"
 import AuthErrorAlert from "../components/Auth/AuthErrorAlert"
-import navigateToDashboard from "../services/Hooks/navigateToDashboard"
 
 export default function Login() {
   const router = useRouter()
@@ -24,6 +23,12 @@ export default function Login() {
     usernameInvalid: credentials.username === "",
     passwordInvalid: credentials.password.length <= 8,
   })
+
+  useEffect(() => {
+    // https://nextjs.org/docs/api-reference/next/router#routerprefetch
+    router.prefetch("/dashboard")
+  }, [])
+
   const handleFormChange = (e) => {
     const { id, value } = e.target
     setCredentials((prevstate) => ({
@@ -56,7 +61,8 @@ export default function Login() {
     storeCredentials(response.jwt, credentials.username)
 
     console.log("Response to Login", response)
-    navigateToDashboard(router)
+
+    router.push("/dashboard/")
   }
 
   return (
