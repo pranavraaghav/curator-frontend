@@ -21,7 +21,7 @@ function CreateCuration() {
 
   const addNewBlock = () => {
     const block = {
-      title: "test",
+      title: "",
       description: "",
       url: "",
       key: uuidv4(),
