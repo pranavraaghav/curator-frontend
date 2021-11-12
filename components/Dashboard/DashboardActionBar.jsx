@@ -53,7 +53,7 @@ const DashboardActionBar = ({}) => {
     <div className="flex flex-row items-start justify-between">
       <div className="flex flex-row space-x-4 text-6xl text-primary">
         <CurationActionBarButton>
-          <Link href={router.asPath + "/new_curation"}>
+          <Link href={router.asPath + "/curation/create"} passHref>
             <div className="frc">
               <i className={"material-icons 3xl"}>{"add"}</i>
               <p className="text-xl">{"New Curation"}</p>

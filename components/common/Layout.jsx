@@ -12,7 +12,7 @@ import Sidebar from "./Sidebar"
 const Layout = ({ children }) => {
   const { pathname } = useRouter()
 
-  const [sidebarActive, setSidebarActive] = useState(true)
+  const [sidebarActive, setSidebarActive] = useState(false)
 
   const toggleSidebar = () => {
     setSidebarActive(!sidebarActive)
