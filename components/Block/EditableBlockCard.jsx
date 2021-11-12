@@ -16,7 +16,7 @@ function EditableBlockCard({ data, deleteHandler, updateHandler }) {
       className="w-full h-auto p-4 pb-8 space-y-4 text-sm rounded-md lg:text-lg bg-block"
     >
       {/* Delete Button */}
-      <button className="block ml-auto my-2" onClick={deleteHandler}>
+      <button className="block ml-auto" onClick={deleteHandler}>
         <Delete className="text-gray-800 cursor-pointer text-2xl md:text-3xl lg:text-4xl" />
       </button>
 
@@ -59,7 +59,7 @@ function EditableBlockCard({ data, deleteHandler, updateHandler }) {
           type="text"
           name="description"
           className="form-text rounded-md"
-          rows={6}
+          rows={4}
           defaultValue={data.description}
         />
       </form>
