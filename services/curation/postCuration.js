@@ -20,8 +20,8 @@ export async function postCuration(data) {
       data,
       { headers: { Authorization: "Bearer " + jwt } }
     )
-    console.log("response", response)
+    return response
   } catch (error) {
-    console.error(error)
+    throw error
   }
 }
