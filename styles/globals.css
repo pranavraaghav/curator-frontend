@@ -1,23 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer components {
+  /* Flex Col Center */
+  .fcc {
+    @apply flex flex-col items-center justify-center;
+  }
 
-    /* Flex Col Center */
-    .fcc{
-        @apply flex flex-col items-center justify-center;
-    }
-    
-    /* Flex Row Center */
-    .frc {
-        @apply flex flex-row items-center justify-center;
-    }
+  /* Flex Row Center */
+  .frc {
+    @apply flex 
+    items-center justify-center;
+  }
 
-    .heading {
-        @apply my-4 mt-16 text-5xl font-bold tracking-wider text-primary font-noto-serif lg:text-7xl;
-    }
+  .heading {
+    @apply text-3xl md:text-5xl lg:text-7xl
+    font-bold tracking-normal text-primary font-noto-serif;
+  }
+
+  .form-text {
+    @apply p-4 my-4 w-full;
+  }
 }

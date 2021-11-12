@@ -1,3 +1,5 @@
+// TODO: Use axios with timeouts and add handling when server unavailable
+
 const login = async (username, password) => {
   const data = {
     username: username,
