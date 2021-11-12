@@ -84,6 +84,18 @@ function Dashboard() {
       blocks: [{}, {}],
     },
   ]
+
+  /**
+   * @param {string} id curation id
+   */
+  const editCurationHandler = async (id) => {
+    console.log("EDIT TRIGGERED")
+    router.push({
+      pathname: "/dashboard/curation/edit",
+      query: { curationId: id },
+    })
+  }
+
   /**
    * First we make the change to local state
    * then we send out a request to the server to delete
@@ -137,6 +149,7 @@ function Dashboard() {
                   <CurationCard
                     key={curation.id}
                     curation={curation}
+                    editHandler={() => editCurationHandler(curation.id)}
                     deleteHandler={() => deleteCurationHandler(curation.id)}
                   />
                 )

@@ -7,7 +7,7 @@ import { cardVariants } from "../global/cardVariants"
 import getUrlFromCurationId from "../../services/Hooks/makeUrlFromCurationId"
 import isMobileBrowser from "../../services/Hooks/isMobileBrowser"
 
-const CurationCard = ({ curation, deleteHandler }) => {
+const CurationCard = ({ curation, deleteHandler, editHandler }) => {
   const [isSaved, setIsSaved] = useState(false)
   const [likes, setLikes] = useState(curation.like_count)
   const [maxDescLength, setMaxDescLength] = useState(120)
@@ -51,6 +51,7 @@ const CurationCard = ({ curation, deleteHandler }) => {
         likes={likes}
         setLikes={setLikes}
         curation={curation}
+        editHandler={editHandler}
         deleteHandler={deleteHandler}
       />
     </motion.div>
