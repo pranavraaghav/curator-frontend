@@ -10,7 +10,7 @@ import getCurrentURL from "../../services/Hooks/makeCurrentURL"
 import HtmlTooltip from "../global/MaterialHTMLTooltip"
 import getUrlFromCurationId from "../../services/Hooks/makeUrlFromCurationId"
 
-const CurationActionBar = ({ likes, setLikes, curation }) => {
+const CurationActionBar = ({ likes, setLikes, curation, deleteHandler }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [isAuthor, setIsAuthor] = useState(true)
   const [isLiked, setIsLiked] = useState(false)
@@ -148,10 +148,15 @@ const CurationActionBar = ({ likes, setLikes, curation }) => {
               {dropdownOpen && (
                 <>
                   <Dropdown icon="delete" iconClass="material-icons">
-                    <DropdownItem icon={"delete"} iconClass={"material-icons"}>
-                      {" "}
-                      Delete{" "}
-                    </DropdownItem>
+                    <button onClick={deleteHandler}>
+                      <DropdownItem
+                        icon={"delete"}
+                        iconClass={"material-icons"}
+                      >
+                        {" "}
+                        Delete{" "}
+                      </DropdownItem>
+                    </button>
                     <DropdownItem
                       icon={"settings"}
                       iconClass={"material-icons"}

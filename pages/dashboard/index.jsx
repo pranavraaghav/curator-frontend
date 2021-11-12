@@ -7,6 +7,7 @@ import CurationCard from "../../components/CurationCard/CurationCard"
 import DashboardActionBar from "../../components/Dashboard/DashboardActionBar"
 import LoadingOverlay from "../../components/common/LoadingOverlay"
 import getCurations from "../../services/dashboard/getCurations"
+import { deleteCuration } from "../../services/curation/deleteCuration"
 
 function Dashboard() {
   //Be wary of Loading state getting locked
@@ -83,6 +84,21 @@ function Dashboard() {
       blocks: [{}, {}],
     },
   ]
+  /**
+   * First we make the change to local state
+   * then we send out a request to the server to delete
+   *
+   * @param {string} id curation id
+   */
+  const deleteCurationHandler = async (id) => {
+    // Change local state
+    setDashboardData(dashboardData.filter((data) => data.id !== id))
+
+    // Send out delete request to server
+    deleteCuration(id)
+      // .then((response) => console.log(response))
+      .catch((err) => console.error(err))
+  }
 
   return (
     <Fragment>
@@ -117,7 +133,13 @@ function Dashboard() {
           {dashboardData && (
             <div className="w-full my-6 space-y-8">
               {dashboardData.map((curation) => {
-                return <CurationCard key={curation.id} curation={curation} />
+                return (
+                  <CurationCard
+                    key={curation.id}
+                    curation={curation}
+                    deleteHandler={() => deleteCurationHandler(curation.id)}
+                  />
+                )
               })}
             </div>
           )}
