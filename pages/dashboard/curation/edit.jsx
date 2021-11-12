@@ -5,7 +5,12 @@ import EditableCuration from "../../../components/Curation/EditableCuration"
 import { useRouter } from "next/dist/client/router"
 import { getCuration } from "../../../services/curation/getCuration"
 
+import LoadingOverlay from "../../../components/common/LoadingOverlay"
+import Loader from "react-loader-spinner"
+
 function EditCuration() {
+  // TODO: memoize getCuration() call using useCallback() maybe?
+  // think it could fix the edit page breaking on reloading
   const router = useRouter()
   const curationId = router.query.curationId
 
@@ -83,8 +88,12 @@ function EditCuration() {
 
   if (!isReady) {
     return (
-      // TODO: Make a proper loading placeholder
-      <div>LOADING</div>
+      <LoadingOverlay>
+        <Loader type="Puff" color="#324376" />
+        <h1 className="p-4 text-3xl font-bold font-noto-serif text-primary">
+          Fetching your curation...
+        </h1>
+      </LoadingOverlay>
     )
   }
 
