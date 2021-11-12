@@ -39,7 +39,8 @@ const CurationCard = ({ curation }) => {
           <span className="m-2 text-lg material-icons">thumb_up</span>
         </h2>
         <div className="text-lg">
-          {curation.description.length > maxDescLength ? (
+          {curation.description &&
+          curation.description.length > maxDescLength ? (
             <p>{curation.description.substring(0, maxDescLength)}...</p>
           ) : (
             <p>{curation.description}</p>
