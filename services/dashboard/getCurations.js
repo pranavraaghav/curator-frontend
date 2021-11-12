@@ -1,16 +1,18 @@
-const getCurations = async (jwt) => {
-  const response = await fetch(
-    "http://curator.navboi.tech/api/user/curations",
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    }
-  )
+import axios from "axios"
 
-  return await response.json()
+export default async function getCurations(jwt) {
+  if (!jwt) {
+    console.error("getCurations called without jwt")
+    return
+  }
+
+  try {
+    const response = await axios.get(
+      "http://curator.navboi.tech/api/user/curations",
+      { headers: { Authorization: "Bearer " + jwt } }
+    )
+    return response.data
+  } catch (error) {
+    throw error
+  }
 }
-
-export default getCurations
