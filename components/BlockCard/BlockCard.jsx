@@ -30,8 +30,8 @@ function BlockCard({ blockData }) {
         {blockData.title}
       </div>
       <div className="flex flex-row items-center justify-between p-2 rounded-md bg-hover font-noto-sans">
-        <a href={blockData.link} className="overflow-hidden">
-          {blockData.link}
+        <a href={blockData.url} className="overflow-hidden">
+          {blockData.url}
         </a>
         <div onClick={handleCopyIconClick}>
           <HtmlTooltip
@@ -46,10 +46,10 @@ function BlockCard({ blockData }) {
         </div>
       </div>
       <div className="text-sm lg:text-lg font-noto-sans">
-        {blockData.desc.length > maxDescLength ? (
-          <p>{blockData.desc.substring(0, maxDescLength)}...</p>
+        {blockData.description.length > maxDescLength ? (
+          <p>{blockData.description.substring(0, maxDescLength)}...</p>
         ) : (
-          <p>{blockData.desc}</p>
+          <p>{blockData.description}</p>
         )}
       </div>
     </motion.div>
