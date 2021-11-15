@@ -13,16 +13,18 @@
 
   /* Flex Row Center */
   .frc {
-    @apply flex 
-    items-center justify-center;
+    @apply flex items-center justify-center;
   }
 
   .heading {
-    @apply text-3xl md:text-5xl lg:text-7xl
-    font-bold tracking-normal text-primary font-noto-serif;
+    @apply text-3xl font-bold tracking-normal md:text-5xl lg:text-7xl text-primary font-noto-serif;
+  }
+
+  .desc {
+    @apply text-sm font-normal lg:text-lg font-noto-sans text-primary;
   }
 
   .form-text {
-    @apply p-4 my-4 w-full;
+    @apply w-full p-4 my-4;
   }
 }
