@@ -12,21 +12,22 @@ function EditableBlockCard({ index, data, deleteHandler, updateHandler }) {
   return (
     <motion.div
       variants={cardVariants}
+      initial="initialUp"
       animate="visible"
       whileHover="hover"
-      className="w-full h-auto p-4 pb-8 space-y-4 text-sm rounded-md lg:text-lg bg-block"
+      className="w-full h-auto pb-8 space-y-4 text-sm rounded-md lg:text-lg bg-block"
     >
-      <div className="flex flex-row items-start justify-between">
+      <div className="flex flex-row items-center justify-between p-4 bg-whisper">
         {/* Block Counter */}
         <h1 className="text-lg heading lg:text-3xl">Block {index}</h1>
 
         {/* Delete Button */}
-        <button className="block ml-auto" onClick={deleteHandler}>
-          <Delete className="text-2xl cursor-pointer text-coal md:text-3xl lg:text-4xl" />
+        <button className="" onClick={deleteHandler}>
+          <Delete className="text-2xl cursor-pointer text-coal hover:brightness-125 md:text-3xl lg:text-4xl" />
         </button>
       </div>
 
-      <form id="form1" onChange={handleChange}>
+      <form id="form1" onChange={handleChange} className="p-4">
         <h1></h1>
         {/* Title */}
         {/* <label htmlFor="title" className="text-lg font-bold font-noto-serif">
