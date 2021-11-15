@@ -3,6 +3,7 @@ import Add from "@mui/icons-material/Add"
 import { v4 as uuidv4 } from "uuid"
 import { Button, TextField } from "@mui/material"
 import EditableBlockCard from "../Block/EditableBlockCard"
+import { motion, AnimatePresence } from "framer-motion"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd" // Drag and drop stuff
 
 function EditableCuration({ initState, submitHandler }) {
@@ -99,34 +100,38 @@ function EditableCuration({ initState, submitHandler }) {
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
-                {blocks.map((block, idx) => {
-                  if (!block.key) {
-                    block.key = uuidv4()
-                  }
-                  return (
-                    <Draggable
-                      key={block.key}
-                      draggableId={block.key}
-                      index={idx}
-                    >
-                      {(provided) => (
-                        <li
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          ref={provided.innerRef}
-                        >
-                          {/* Block */}
-                          <EditableBlockCard
-                            index={idx}
-                            data={block}
-                            deleteHandler={() => deleteBlocksHandler(block.key)}
-                            updateHandler={updateBlocksHandler}
-                          />
-                        </li>
-                      )}
-                    </Draggable>
-                  )
-                })}
+                <AnimatePresence>
+                  {blocks.map((block, idx) => {
+                    if (!block.key) {
+                      block.key = uuidv4()
+                    }
+                    return (
+                      <Draggable
+                        key={block.key}
+                        draggableId={block.key}
+                        index={idx}
+                      >
+                        {(provided) => (
+                          <li
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            ref={provided.innerRef}
+                          >
+                            {/* Block */}
+                            <EditableBlockCard
+                              index={idx}
+                              data={block}
+                              deleteHandler={() =>
+                                deleteBlocksHandler(block.key)
+                              }
+                              updateHandler={updateBlocksHandler}
+                            />
+                          </li>
+                        )}
+                      </Draggable>
+                    )
+                  })}
+                </AnimatePresence>
                 {provided.placeholder}
               </ul>
             )}
