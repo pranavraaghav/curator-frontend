@@ -1,4 +1,4 @@
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { cardVariants } from "../global/cardVariants"
 import { TextField } from "@mui/material"
 import Delete from "@mui/icons-material/Delete"
@@ -14,7 +14,9 @@ function EditableBlockCard({ index, data, deleteHandler, updateHandler }) {
       variants={cardVariants}
       initial="initialUp"
       animate="visible"
+      exit="exitLeft"
       whileHover="hover"
+      key={index}
       className="w-full h-auto pb-8 space-y-4 text-sm rounded-md lg:text-lg bg-block"
     >
       <div className="flex flex-row items-center justify-between p-4 bg-whisper">
