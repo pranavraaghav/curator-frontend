@@ -117,6 +117,7 @@ function EditableCuration({ initState, submitHandler }) {
                         >
                           {/* Block */}
                           <EditableBlockCard
+                            index={idx}
                             data={block}
                             deleteHandler={() => deleteBlocksHandler(block.key)}
                             updateHandler={updateBlocksHandler}
