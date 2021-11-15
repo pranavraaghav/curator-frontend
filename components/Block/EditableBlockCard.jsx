@@ -3,7 +3,7 @@ import { cardVariants } from "../global/cardVariants"
 import { TextField } from "@mui/material"
 import Delete from "@mui/icons-material/Delete"
 
-function EditableBlockCard({ data, deleteHandler, updateHandler }) {
+function EditableBlockCard({ index, data, deleteHandler, updateHandler }) {
   const handleChange = (event) => {
     data[event.target.name] = event.target.value
     updateHandler(data)
@@ -17,6 +17,9 @@ function EditableBlockCard({ data, deleteHandler, updateHandler }) {
       className="w-full h-auto p-4 pb-8 space-y-4 text-sm rounded-md lg:text-lg bg-block"
     >
       <div className="flex flex-row items-start justify-between">
+        {/* Block Counter */}
+        <h1 className="text-lg heading lg:text-3xl">Block {index}</h1>
+
         {/* Delete Button */}
         <button className="block ml-auto" onClick={deleteHandler}>
           <Delete className="text-2xl cursor-pointer text-coal md:text-3xl lg:text-4xl" />
