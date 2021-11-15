@@ -1,7 +1,7 @@
 import { useState } from "react"
 import Add from "@mui/icons-material/Add"
 import { v4 as uuidv4 } from "uuid"
-import { Button } from "@mui/material"
+import { Button, TextField } from "@mui/material"
 import EditableBlockCard from "../Block/EditableBlockCard"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd" // Drag and drop stuff
 
@@ -51,50 +51,43 @@ function EditableCuration({ initState, submitHandler }) {
   }
 
   return (
-    <div className="p-4 w-full lg:w-1/2 lg:ml-36 lg:mr-auto">
+    <div className="flex flex-col items-start w-full p-4 lg:w-1/2 lg:ml-36 lg:mr-auto">
+      <h1 className="heading">New Curation</h1>
       {/* Title */}
-      <label htmlFor="title" className="font-bold text-lg font-noto-serif my-2">
+      {/* <label
+        htmlFor="title"
+        className="my-2 text-lg font-bold lg:text-5xl heading font-noto-serif"
+      >
         Title
-      </label>
+      </label> */}
       <input
-        className="form-text rounded-md"
+        className="text-lg rounded lg:text-5xl-md heading form-text"
         name="title"
         label="title"
         type="text"
+        placeholder={"Title"}
         value={title}
         onChange={changeTitleHandler}
       />
 
       {/* Description */}
-      <label
+      {/* <label
         htmlFor="description"
-        className="font-bold text-lg font-noto-serif my-2 "
+        className="my-2 text-lg font-bold font-noto-serif "
       >
         Description
-      </label>
+      </label> */}
       <textarea
         variant="outlined"
         value={description}
         label="Description"
         type="text"
         name="description"
-        className="form-text rounded-md"
+        placeholder="Describe the curation "
+        className="rounded-md desc form-text"
         onChange={changeDescriptionHandler}
         rows={4}
       />
-      {/* Button to create new blocks*/}
-      <Button
-        variant="contained"
-        className="
-            ml-auto 2xl:my-2
-            text-sm md:text-md lg:text-lg 
-            font-bold p-2 md:p-4
-            "
-        onClick={addNewBlock}
-      >
-        Add a block
-        <Add className="ml-2 text-lg lg:text-3xl" />
-      </Button>
 
       {/* Block Container */}
       {blocks.length !== 0 && (
@@ -140,18 +133,22 @@ function EditableCuration({ initState, submitHandler }) {
         </DragDropContext>
       )}
 
+      {/* Button to create new blocks*/}
+      <Button
+        variant="contained"
+        className="p-2 ml-auto text-sm font-bold 2xl:my-2 md:text-md lg:text-lg md:p-4"
+        onClick={addNewBlock}
+      >
+        Add a block
+        <Add className="ml-2 text-lg lg:text-3xl" />
+      </Button>
+
       {/* Button to submit curation */}
       {/* TODO: Make a tailwind button for this */}
       {blocks.length !== 0 && (
         <Button
           variant="contained"
-          className="
-              block
-              mx-auto 2xl:my-2
-              text-sm md:text-md lg:text-lg 
-              font-bold p-2 md:p-4
-              bg-green-500
-              "
+          className="block p-2 mx-auto text-sm font-bold bg-green-500 2xl:my-2 md:text-md lg:text-lg md:p-4"
           onClick={() =>
             submitHandler({
               title: title,
