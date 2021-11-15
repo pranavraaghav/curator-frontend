@@ -1,5 +1,6 @@
 import { motion } from "framer-motion"
 import { cardVariants } from "../global/cardVariants"
+import { TextField } from "@mui/material"
 import Delete from "@mui/icons-material/Delete"
 
 function EditableBlockCard({ data, deleteHandler, updateHandler }) {
@@ -15,50 +16,67 @@ function EditableBlockCard({ data, deleteHandler, updateHandler }) {
       whileHover="hover"
       className="w-full h-auto p-4 pb-8 space-y-4 text-sm rounded-md lg:text-lg bg-block"
     >
-      {/* Delete Button */}
-      <button className="block ml-auto" onClick={deleteHandler}>
-        <Delete className="text-gray-800 cursor-pointer text-2xl md:text-3xl lg:text-4xl" />
-      </button>
+      <div className="flex flex-row items-start justify-between">
+        {/* Delete Button */}
+        <button className="block ml-auto" onClick={deleteHandler}>
+          <Delete className="text-2xl cursor-pointer text-coal md:text-3xl lg:text-4xl" />
+        </button>
+      </div>
 
       <form id="form1" onChange={handleChange}>
+        <h1></h1>
         {/* Title */}
-        <label htmlFor="title" className="font-bold text-lg font-noto-serif">
+        {/* <label htmlFor="title" className="text-lg font-bold font-noto-serif">
           Title
-        </label>
+        </label> */}
         <input
-          className="form-text rounded-md"
+          className="rounded-md form-text heading lg:text-3xl"
           name="title"
           label="title"
+          placeholder="Block Title"
           type="text"
           defaultValue={data.title}
         />
+        {/* <TextField
+          className="rounded-md desc form-text"
+          name="title"
+          placeholder="Block Title"
+          type="text"
+          defaultValue={data.title}
+          variant="standard"
+          InputProps={{
+            className: "desc lg:text-9xl",
+          }}
+        /> */}
 
         {/* TODO: Add live validation */}
         {/* URL */}
-        <label htmlFor="url" className="font-bold text-lg font-noto-serif">
+        {/* <label htmlFor="url" className="text-lg font-bold font-noto-serif">
           URL
-        </label>
+        </label> */}
         <input
-          className="form-text rounded-md"
+          className="rounded-md form-text desc"
           name="url"
           label="url"
+          placeholder="Paste URL here"
           type="text"
           defaultValue={data.url}
         />
 
         {/* Description */}
-        <label
+        {/* <label
           htmlFor="description"
-          className="font-bold text-lg font-noto-serif"
+          className="text-lg font-bold font-noto-serif"
         >
           Description
-        </label>
+        </label> */}
         <textarea
           variant="outlined"
           label="Description"
           type="text"
           name="description"
-          className="form-text rounded-md"
+          placeholder="Describe this block"
+          className="rounded-md form-text desc"
           rows={4}
           defaultValue={data.description}
         />
