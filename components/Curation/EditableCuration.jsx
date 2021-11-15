@@ -51,7 +51,7 @@ function EditableCuration({ initState, submitHandler }) {
   }
 
   return (
-    <div className="flex flex-col items-start w-full p-4 lg:w-1/2 lg:ml-36 lg:mr-auto">
+    <div className="flex flex-col items-start w-full p-4 space-y-8 lg:w-1/2 lg:ml-36 lg:mr-auto">
       <h1 className="heading">New Curation</h1>
       {/* Title */}
       {/* <label
@@ -61,7 +61,7 @@ function EditableCuration({ initState, submitHandler }) {
         Title
       </label> */}
       <input
-        className="text-lg rounded lg:text-5xl-md heading form-text"
+        className="text-lg rounded lg:text-3xl heading form-text"
         name="title"
         label="title"
         type="text"
@@ -137,7 +137,7 @@ function EditableCuration({ initState, submitHandler }) {
       {/* Button to create new blocks*/}
       <Button
         variant="contained"
-        className="p-2 ml-auto text-sm font-bold 2xl:my-2 md:text-md lg:text-lg md:p-4"
+        className="p-2 ml-auto text-sm font-bold hover:bg-secondary font-noto-sans 2xl:my-2 md:text-md lg:text-lg md:p-4"
         onClick={addNewBlock}
       >
         Add a block
@@ -149,7 +149,7 @@ function EditableCuration({ initState, submitHandler }) {
       {blocks.length !== 0 && (
         <Button
           variant="contained"
-          className="block p-2 mx-auto text-sm font-bold bg-green-500 2xl:my-2 md:text-md lg:text-lg md:p-4"
+          className="block p-2 mx-auto text-sm font-bold bg-green-500 hover:bg-secondary font-noto-sans 2xl:my-2 md:text-md lg:text-lg md:p-4"
           onClick={() =>
             submitHandler({
               title: title,
