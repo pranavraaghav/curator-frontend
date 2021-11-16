@@ -17,7 +17,7 @@ function EditableBlockCard({ index, data, deleteHandler, updateHandler }) {
       exit="exitLeft"
       whileHover="hover"
       key={index}
-      className="w-full h-auto pb-8 space-y-4 text-sm rounded-md lg:text-lg bg-block"
+      className="w-full h-auto pb-8 text-sm rounded-md lg:text-lg bg-block"
     >
       <div className="flex flex-row items-center justify-between p-4 bg-whisper">
         {/* Block Counter */}
@@ -30,43 +30,39 @@ function EditableBlockCard({ index, data, deleteHandler, updateHandler }) {
       </div>
 
       <form id="form1" onChange={handleChange} className="p-4">
-        <h1></h1>
         {/* Title */}
         {/* <label htmlFor="title" className="text-lg font-bold font-noto-serif">
           Title
         </label> */}
-        <input
-          className="rounded-md form-text heading lg:text-3xl"
-          name="title"
-          label="title"
-          placeholder="Block Title"
-          type="text"
-          defaultValue={data.title}
-        />
-        {/* <TextField
-          className="rounded-md desc form-text"
+        <TextField
+          className="form-text"
           name="title"
           placeholder="Block Title"
           type="text"
           defaultValue={data.title}
-          variant="standard"
+          variant="outlined"
           InputProps={{
-            className: "desc lg:text-9xl",
+            className: "desc",
           }}
-        /> */}
+        />
 
         {/* TODO: Add live validation */}
         {/* URL */}
+
         {/* <label htmlFor="url" className="text-lg font-bold font-noto-serif">
           URL
         </label> */}
-        <input
-          className="rounded-md form-text desc"
+
+        <TextField
+          className="form-text"
           name="url"
-          label="url"
-          placeholder="Paste URL here"
+          placeholder="Drop a URL here"
           type="text"
           defaultValue={data.url}
+          variant="outlined"
+          InputProps={{
+            className: "desc",
+          }}
         />
 
         {/* Description */}
@@ -76,15 +72,19 @@ function EditableBlockCard({ index, data, deleteHandler, updateHandler }) {
         >
           Description
         </label> */}
-        <textarea
-          variant="outlined"
-          label="Description"
-          type="text"
+
+        <TextField
+          className="form-text"
           name="description"
           placeholder="Describe this block"
-          className="rounded-md form-text desc"
-          rows={4}
+          type="text"
           defaultValue={data.description}
+          multiline
+          rows={4}
+          variant="outlined"
+          InputProps={{
+            className: "desc",
+          }}
         />
       </form>
     </motion.div>
