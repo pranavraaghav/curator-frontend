@@ -52,18 +52,16 @@ function EditableCuration({ initState, submitHandler }) {
   }
 
   return (
-    <div className="flex flex-row ">
-      <div className="flex flex-col items-start w-full p-4 space-y-4 lg:w-1/2 lg:ml-36 lg:mr-auto">
-        <h1 className="heading">Create a Curation</h1>
-        <div className="space-y-0 card-wrapper">
-          {/* Title */}
-          {/* <label
+    <div className=" p-4 w-full flex flex-col items-start space-y-4  ">
+      <div className="space-y-0 card-wrapper">
+        {/* Title */}
+        {/* <label
             htmlFor="title"
             className="m-2 text-lg font-bold lg:text-3xl heading font-noto-serif"
           >
             Title
           </label> */}
-          {/* <input
+        {/* <input
             className="text-lg rounded desc form-text"
             name="title"
             label="title"
@@ -73,28 +71,28 @@ function EditableCuration({ initState, submitHandler }) {
             onChange={changeTitleHandler}
           /> */}
 
-          <TextField
-            className="form-text"
-            name="title"
-            placeholder="Title"
-            type="text"
-            value={title}
-            onChange={changeTitleHandler}
-            variant="outlined"
-            InputProps={{
-              className: "desc",
-            }}
-          />
+        <TextField
+          className="form-text"
+          name="title"
+          placeholder="Title"
+          type="text"
+          value={title}
+          onChange={changeTitleHandler}
+          variant="outlined"
+          InputProps={{
+            className: "desc",
+          }}
+        />
 
-          {/* Description */}
-          {/* <label
+        {/* Description */}
+        {/* <label
             htmlFor="description"
             className="m-2 text-lg font-bold lg:text-3xl heading font-noto-serif "
           >
             Description
           </label> */}
 
-          {/* <textarea
+        {/* <textarea
             variant="outlined"
             value={description}
             label="Description"
@@ -106,108 +104,106 @@ function EditableCuration({ initState, submitHandler }) {
             rows={4}
           /> */}
 
-          <TextField
-            className="form-text"
-            name="description"
-            placeholder="Describe the curation"
-            type="text"
-            value={description}
-            onChange={changeDescriptionHandler}
-            multiline
-            rows={4}
-            variant="outlined"
-            InputProps={{
-              className: "desc",
-            }}
-          />
+        <TextField
+          className="form-text"
+          name="description"
+          placeholder="Describe the curation"
+          type="text"
+          value={description}
+          onChange={changeDescriptionHandler}
+          multiline
+          rows={4}
+          variant="outlined"
+          InputProps={{
+            className: "desc",
+          }}
+        />
+      </div>
+
+      {/* Block Container */}
+      {blocks.length !== 0 && (
+        <DragDropContext onDragEnd={handleOnDragEnd}>
+          <Droppable droppableId="blocks">
+            {(provided) => (
+              <ul
+                className="flex flex-col w-full gap-4 py-6"
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                <AnimatePresence>
+                  {blocks.map((block, idx) => {
+                    if (!block.key) {
+                      block.key = uuidv4()
+                    }
+                    return (
+                      <Draggable
+                        key={block.key}
+                        draggableId={block.key}
+                        index={idx}
+                      >
+                        {(provided) => (
+                          <li
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            ref={provided.innerRef}
+                          >
+                            {/* Block */}
+                            <EditableBlockCard
+                              index={idx}
+                              data={block}
+                              deleteHandler={() =>
+                                deleteBlocksHandler(block.key)
+                              }
+                              updateHandler={updateBlocksHandler}
+                            />
+                          </li>
+                        )}
+                      </Draggable>
+                    )
+                  })}
+                </AnimatePresence>
+                {provided.placeholder}
+              </ul>
+            )}
+          </Droppable>
+        </DragDropContext>
+      )}
+
+      <div className="items-center justify-center space-y-4 fcc card-wrapper">
+        <div className="hidden card-wrapper frc hover:bg-hover lg:flex">
+          <Info className="mx-2 text-lg text-secondary lg:text-3xl" />
+          <h2 className="desc">
+            Re-arrange the blocks by dragging and dropping them by their handles
+          </h2>
         </div>
-
-        {/* Block Container */}
-        {blocks.length !== 0 && (
-          <DragDropContext onDragEnd={handleOnDragEnd}>
-            <Droppable droppableId="blocks">
-              {(provided) => (
-                <ul
-                  className="flex flex-col w-full gap-4 py-6"
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                >
-                  <AnimatePresence>
-                    {blocks.map((block, idx) => {
-                      if (!block.key) {
-                        block.key = uuidv4()
-                      }
-                      return (
-                        <Draggable
-                          key={block.key}
-                          draggableId={block.key}
-                          index={idx}
-                        >
-                          {(provided) => (
-                            <li
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                              ref={provided.innerRef}
-                            >
-                              {/* Block */}
-                              <EditableBlockCard
-                                index={idx}
-                                data={block}
-                                deleteHandler={() =>
-                                  deleteBlocksHandler(block.key)
-                                }
-                                updateHandler={updateBlocksHandler}
-                              />
-                            </li>
-                          )}
-                        </Draggable>
-                      )
-                    })}
-                  </AnimatePresence>
-                  {provided.placeholder}
-                </ul>
-              )}
-            </Droppable>
-          </DragDropContext>
-        )}
-
-        <div className="items-center justify-center space-y-4 fcc card-wrapper">
-          <div className="hidden card-wrapper frc hover:bg-hover lg:flex">
-            <Info className="mx-2 text-lg text-secondary lg:text-3xl" />
-            <h2 className="desc">
-              Re-arrange the blocks by dragging and dropping them by their
-              handles
-            </h2>
-          </div>
-          <div className="flex flex-row justify-around w-full">
-            {/* Button to create new blocks*/}
+        <div className="flex flex-row justify-around w-full">
+          {/* Button to create new blocks*/}
+          <Button
+            variant="contained"
+            className="flex p-2 text-sm font-bold hover:bg-secondary font-noto-sans 2xl:my-2 md:text-md lg:text-lg md:p-4"
+            onClick={addNewBlock}
+          >
+            Add a block
+            <Add className="ml-2 text-lg lg:text-3xl" />
+          </Button>
+          {/* Button to submit curation */}
+          {/* TODO: Make a tailwind button for this */}
+          {blocks.length !== 0 && (
             <Button
               variant="contained"
-              className="flex p-2 text-sm font-bold hover:bg-secondary font-noto-sans 2xl:my-2 md:text-md lg:text-lg md:p-4"
-              onClick={addNewBlock}
+              className="flex p-2 text-sm font-bold bg-green-500 hover:bg-secondary font-noto-sans 2xl:my-2 md:text-md lg:text-lg md:p-4"
+              onClick={() =>
+                submitHandler({
+                  title: title,
+                  description: description,
+                  blocks: blocks,
+                })
+              }
             >
-              Add a block
-              <Add className="ml-2 text-lg lg:text-3xl" />
+              Submit
+              <Publish className="ml-2 text-lg lg:text-3xl" />
             </Button>
-            {/* Button to submit curation */}
-            {/* TODO: Make a tailwind button for this */}
-            {blocks.length !== 0 && (
-              <Button
-                variant="contained"
-                className="flex p-2 text-sm font-bold bg-green-500 hover:bg-secondary font-noto-sans 2xl:my-2 md:text-md lg:text-lg md:p-4"
-                onClick={() =>
-                  submitHandler({
-                    title: title,
-                    description: description,
-                    blocks: blocks,
-                  })
-                }
-              >
-                Submit
-                <Publish className="ml-2 text-lg lg:text-3xl" />
-              </Button>
-            )}
-          </div>
+          )}
         </div>
       </div>
     </div>
