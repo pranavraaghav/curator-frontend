@@ -58,10 +58,13 @@ function CreateCuration() {
   return (
     <Fragment>
       <div className="w-full min-h-screen bg-bg">
-        <EditableCuration
-          initState={initState}
-          submitHandler={submitHandler}
-        ></EditableCuration>
+        <div className="lg:w-1/2 lg:ml-36 lg:mr-auto">
+          <h1 className="heading py-4">Create a Curation</h1>
+          <EditableCuration
+            initState={initState}
+            submitHandler={submitHandler}
+          ></EditableCuration>
+        </div>
       </div>
     </Fragment>
   )
