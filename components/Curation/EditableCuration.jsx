@@ -1,5 +1,5 @@
 import { useState } from "react"
-import Add from "@mui/icons-material/Add"
+import { Add, Publish, Info } from "@mui/icons-material"
 import { v4 as uuidv4 } from "uuid"
 import { Button, TextField } from "@mui/material"
 import EditableBlockCard from "../Block/EditableBlockCard"
@@ -52,120 +52,135 @@ function EditableCuration({ initState, submitHandler }) {
   }
 
   return (
-    <div className="flex flex-col items-start w-full p-4 space-y-8 lg:w-1/2 lg:ml-36 lg:mr-auto">
-      <h1 className="heading">New Curation</h1>
-      {/* Title */}
-      {/* <label
+    <div className="flex flex-row ">
+      <div className="flex flex-col items-start w-full p-4 space-y-8 lg:w-1/2 lg:ml-36 lg:mr-auto">
+        <h1 className="heading">Create a Curation</h1>
+        {/* Title */}
+        {/* <label
         htmlFor="title"
         className="my-2 text-lg font-bold lg:text-5xl heading font-noto-serif"
       >
         Title
       </label> */}
-      <input
-        className="text-lg rounded lg:text-3xl heading form-text"
-        name="title"
-        label="title"
-        type="text"
-        placeholder={"Title"}
-        value={title}
-        onChange={changeTitleHandler}
-      />
+        <div className="card-wrapper">
+          <input
+            className="text-lg rounded desc form-text"
+            name="title"
+            label="title"
+            type="text"
+            placeholder={"Title"}
+            value={title}
+            onChange={changeTitleHandler}
+          />
 
-      {/* Description */}
-      {/* <label
+          {/* Description */}
+          {/* <label
         htmlFor="description"
         className="my-2 text-lg font-bold font-noto-serif "
       >
         Description
       </label> */}
-      <textarea
-        variant="outlined"
-        value={description}
-        label="Description"
-        type="text"
-        name="description"
-        placeholder="Describe the curation "
-        className="rounded-md desc form-text"
-        onChange={changeDescriptionHandler}
-        rows={4}
-      />
+          <textarea
+            variant="outlined"
+            value={description}
+            label="Description"
+            type="text"
+            name="description"
+            placeholder="Describe the curation "
+            className="rounded-md desc form-text"
+            onChange={changeDescriptionHandler}
+            rows={4}
+          />
+        </div>
 
-      {/* Block Container */}
-      {blocks.length !== 0 && (
-        <DragDropContext onDragEnd={handleOnDragEnd}>
-          <Droppable droppableId="blocks">
-            {(provided) => (
-              <ul
-                className="flex flex-col gap-4 py-6"
-                {...provided.droppableProps}
-                ref={provided.innerRef}
+        {/* Block Container */}
+        {blocks.length !== 0 && (
+          <DragDropContext onDragEnd={handleOnDragEnd}>
+            <Droppable droppableId="blocks">
+              {(provided) => (
+                <ul
+                  className="flex flex-col w-full gap-4 py-6"
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  <AnimatePresence>
+                    {blocks.map((block, idx) => {
+                      if (!block.key) {
+                        block.key = uuidv4()
+                      }
+                      return (
+                        <Draggable
+                          key={block.key}
+                          draggableId={block.key}
+                          index={idx}
+                        >
+                          {(provided) => (
+                            <li
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              ref={provided.innerRef}
+                            >
+                              {/* Block */}
+                              <EditableBlockCard
+                                index={idx}
+                                data={block}
+                                deleteHandler={() =>
+                                  deleteBlocksHandler(block.key)
+                                }
+                                updateHandler={updateBlocksHandler}
+                              />
+                            </li>
+                          )}
+                        </Draggable>
+                      )
+                    })}
+                  </AnimatePresence>
+                  {provided.placeholder}
+                </ul>
+              )}
+            </Droppable>
+          </DragDropContext>
+        )}
+
+        <div className="items-center justify-center space-y-4 fcc card-wrapper">
+          <div className="hidden card-wrapper frc hover:bg-hover lg:flex">
+            <Info className="mx-2 text-lg text-secondary lg:text-3xl" />
+            <h2 className="desc">
+              Re-arrange the blocks by dragging and dropping them by their
+              handles
+            </h2>
+          </div>
+          <div className="flex flex-row justify-around w-full">
+            {/* Button to create new blocks*/}
+            <Button
+              variant="contained"
+              className="flex p-2 text-sm font-bold hover:bg-secondary font-noto-sans 2xl:my-2 md:text-md lg:text-lg md:p-4"
+              onClick={addNewBlock}
+            >
+              Add a block
+              <Add className="ml-2 text-lg lg:text-3xl" />
+            </Button>
+            {/* Button to submit curation */}
+            {/* TODO: Make a tailwind button for this */}
+            {blocks.length !== 0 && (
+              <Button
+                variant="contained"
+                className="flex p-2 text-sm font-bold bg-green-500 hover:bg-secondary font-noto-sans 2xl:my-2 md:text-md lg:text-lg md:p-4"
+                onClick={() =>
+                  submitHandler({
+                    title: title,
+                    description: description,
+                    blocks: blocks,
+                  })
+                }
               >
-                <AnimatePresence>
-                  {blocks.map((block, idx) => {
-                    if (!block.key) {
-                      block.key = uuidv4()
-                    }
-                    return (
-                      <Draggable
-                        key={block.key}
-                        draggableId={block.key}
-                        index={idx}
-                      >
-                        {(provided) => (
-                          <li
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            ref={provided.innerRef}
-                          >
-                            {/* Block */}
-                            <EditableBlockCard
-                              index={idx}
-                              data={block}
-                              deleteHandler={() =>
-                                deleteBlocksHandler(block.key)
-                              }
-                              updateHandler={updateBlocksHandler}
-                            />
-                          </li>
-                        )}
-                      </Draggable>
-                    )
-                  })}
-                </AnimatePresence>
-                {provided.placeholder}
-              </ul>
+                Submit
+                <Publish className="ml-2 text-lg lg:text-3xl" />
+              </Button>
             )}
-          </Droppable>
-        </DragDropContext>
-      )}
-
-      {/* Button to create new blocks*/}
-      <Button
-        variant="contained"
-        className="p-2 ml-auto text-sm font-bold hover:bg-secondary font-noto-sans 2xl:my-2 md:text-md lg:text-lg md:p-4"
-        onClick={addNewBlock}
-      >
-        Add a block
-        <Add className="ml-2 text-lg lg:text-3xl" />
-      </Button>
-
-      {/* Button to submit curation */}
-      {/* TODO: Make a tailwind button for this */}
-      {blocks.length !== 0 && (
-        <Button
-          variant="contained"
-          className="block p-2 mx-auto text-sm font-bold bg-green-500 hover:bg-secondary font-noto-sans 2xl:my-2 md:text-md lg:text-lg md:p-4"
-          onClick={() =>
-            submitHandler({
-              title: title,
-              description: description,
-              blocks: blocks,
-            })
-          }
-        >
-          Submit Curation
-        </Button>
-      )}
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
