@@ -13,7 +13,11 @@
 
   /* Flex Row Center */
   .frc {
-    @apply flex items-center justify-center;
+    @apply flex flex-row items-center justify-center;
+  }
+
+  .frs {
+    @apply flex flex-row items-start;
   }
 
   .heading {
@@ -21,10 +25,14 @@
   }
 
   .desc {
-    @apply text-sm font-normal lg:text-lg font-noto-sans text-primary;
+    @apply text-sm font-normal lg:text-lg font-noto-sans text-coal;
+  }
+
+  .card-wrapper {
+    @apply w-full h-auto p-4 text-sm rounded-md lg:text-lg bg-block;
   }
 
   .form-text {
-    @apply w-full p-4 my-4;
+    @apply w-full p-4 my-2;
   }
 }

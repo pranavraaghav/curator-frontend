@@ -37,8 +37,4 @@ const cardVariants = {
   },
 }
 
-const cardIconVariants = {
-  hover: {},
-}
-
 export { cardVariants }
