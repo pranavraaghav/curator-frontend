@@ -53,17 +53,17 @@ function EditableCuration({ initState, submitHandler }) {
 
   return (
     <div className="flex flex-row ">
-      <div className="flex flex-col items-start w-full p-4 space-y-8 lg:w-1/2 lg:ml-36 lg:mr-auto">
+      <div className="flex flex-col items-start w-full p-4 space-y-4 lg:w-1/2 lg:ml-36 lg:mr-auto">
         <h1 className="heading">Create a Curation</h1>
-        {/* Title */}
-        {/* <label
-        htmlFor="title"
-        className="my-2 text-lg font-bold lg:text-5xl heading font-noto-serif"
-      >
-        Title
-      </label> */}
-        <div className="card-wrapper">
-          <input
+        <div className="space-y-0 card-wrapper">
+          {/* Title */}
+          {/* <label
+            htmlFor="title"
+            className="m-2 text-lg font-bold lg:text-3xl heading font-noto-serif"
+          >
+            Title
+          </label> */}
+          {/* <input
             className="text-lg rounded desc form-text"
             name="title"
             label="title"
@@ -71,16 +71,30 @@ function EditableCuration({ initState, submitHandler }) {
             placeholder={"Title"}
             value={title}
             onChange={changeTitleHandler}
+          /> */}
+
+          <TextField
+            className="form-text"
+            name="title"
+            placeholder="Title"
+            type="text"
+            value={title}
+            onChange={changeTitleHandler}
+            variant="outlined"
+            InputProps={{
+              className: "desc",
+            }}
           />
 
           {/* Description */}
           {/* <label
-        htmlFor="description"
-        className="my-2 text-lg font-bold font-noto-serif "
-      >
-        Description
-      </label> */}
-          <textarea
+            htmlFor="description"
+            className="m-2 text-lg font-bold lg:text-3xl heading font-noto-serif "
+          >
+            Description
+          </label> */}
+
+          {/* <textarea
             variant="outlined"
             value={description}
             label="Description"
@@ -90,6 +104,21 @@ function EditableCuration({ initState, submitHandler }) {
             className="rounded-md desc form-text"
             onChange={changeDescriptionHandler}
             rows={4}
+          /> */}
+
+          <TextField
+            className="form-text"
+            name="description"
+            placeholder="Describe the curation"
+            type="text"
+            value={description}
+            onChange={changeDescriptionHandler}
+            multiline
+            rows={4}
+            variant="outlined"
+            InputProps={{
+              className: "desc",
+            }}
           />
         </div>
 
