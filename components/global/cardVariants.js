@@ -35,6 +35,14 @@ const cardVariants = {
   hover: {
     boxShadow: "2px 2px 8px 10px rgba(0,0,0,0.2)",
   },
+  hop: {
+    y: [0, -8, 0],
+    transition: {
+      type: "spring",
+      stiffnes: 100,
+      duration: 0.3,
+    },
+  },
 }
 
 export { cardVariants }
