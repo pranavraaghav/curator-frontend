@@ -35,4 +35,12 @@
   .form-text {
     @apply w-full p-4 my-2;
   }
+
+  .primary-hover {
+    @apply transition-all duration-300 bg-block hover:bg-hover;
+  }
+
+  .secondary-hover {
+    @apply transition-all duration-300 bg-hover hover:bg-block;
+  }
 }
