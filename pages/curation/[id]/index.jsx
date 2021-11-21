@@ -10,6 +10,7 @@ import LoadingOverlay from "../../../components/common/LoadingOverlay"
 import CurationActionBar from "../../../components/CurationCard/CurationActionBar"
 import DateTimeFormat from "../../../components/common/DateTimeFormat"
 import { getCuration } from "../../../services/curation/getCuration"
+import NotFound from "../../../components/common/NotFound"
 
 function CurationPage({ curation }) {
   const [isLoading, setIsLoading] = useState(true)
@@ -83,6 +84,10 @@ function CurationPage({ curation }) {
       setBlocksData(curation.blocks)
       setIsLoading(false)
     }
+    // End Loading after 5secs
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 5000)
   }, [])
 
   const shortLength = 320
@@ -113,14 +118,14 @@ function CurationPage({ curation }) {
             <div className="flex flex-col items-start justify-start p-4 space-y-8 lg:ml-20 lg:px-4 text-primary lg:mr-96">
               <div>
                 <h1 className="heading">{curation.title}</h1>
-                <div className="flex flex-col p-2 my-2 text-xl rounded-md w-max lg:text-2xl lg:flex-row text-primary font-noto-serif secondary-hover">
+                {/* <div className="flex flex-col p-2 my-2 text-xl rounded-md w-max lg:text-2xl lg:flex-row text-primary font-noto-serif secondary-hover">
                   <p>
                     By{" "}
-                    {/* <Link href={`/user/${curation.createdBy.id}`}>
+                    <Link href={`/user/${curation.createdBy.id}`}>
                     {curation.createdBy.username}
-                  </Link> */}
+                  </Link>
                   </p>
-                </div>
+                </div> */}
               </div>
 
               <div className="w-full h-auto p-4 space-y-2 text-sm rounded-md lg:text-xl text-primary bg-block">
@@ -171,15 +176,7 @@ function CurationPage({ curation }) {
         /**
          * Null Curation Fetched - might be bad link or server issue
          */
-        <>
-          <Head>
-            <title>Wrong Page!</title>
-          </Head>
-          <div>
-            Oops we couldn't find the page you're looking for! Maybe try
-            checking the link or changing it.
-          </div>
-        </>
+        <>{!isLoading && <NotFound />}</>
       )}
     </Fragment>
   )
