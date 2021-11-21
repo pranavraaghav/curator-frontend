@@ -43,4 +43,12 @@
   .secondary-hover {
     @apply transition-all duration-300 bg-hover hover:bg-block;
   }
+
+  .icon-size {
+    @apply text-2xl lg:text-3xl;
+  }
+
+  .icon-label-size {
+    @apply hidden text-xl lg:block;
+  }
 }

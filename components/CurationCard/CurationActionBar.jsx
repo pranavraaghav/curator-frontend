@@ -46,32 +46,32 @@ const CurationActionBar = ({
   const actions = [
     {
       id: 1,
-      iconClass: "material-icons text-3xl",
+      iconClass: "material-icons icon-size",
       icon: "link",
       label: "Link",
       handler: getCurrentURL(),
     },
     {
       id: 2,
-      iconClass: "material-icons text-3xl",
+      iconClass: "material-icons icon-size",
       icon: "bookmark",
       label: "Save",
     },
     {
       id: 3,
-      iconClass: "material-icons text-3xl",
+      iconClass: "material-icons icon-size",
       icon: "bookmark_border",
       label: "Unsave",
     },
     {
       id: 4,
-      iconClass: "material-icons text-3xl",
+      iconClass: "material-icons icon-size",
       icon: "edit",
       label: "Edit",
     },
     {
       id: 5,
-      iconClass: "material-icons text-3xl",
+      iconClass: "material-icons icon-size",
       icon: "thumb_up",
       label: " Like",
     },
@@ -109,8 +109,8 @@ const CurationActionBar = ({
         >
           <div onClick={handleLinkClick} className="ml-4 frc">
             <CurationActionBarButton>
-              <i className={"material-icons text-3xl"}>{"link"}</i>
-              <p className="text-xl">{"Link"}</p>
+              <i className={"material-icons icon-size"}>{"link"}</i>
+              <p className="icon-label-size">{"Link"}</p>
             </CurationActionBarButton>
           </div>
         </HtmlTooltip>
@@ -118,15 +118,17 @@ const CurationActionBar = ({
         {isLiked ? (
           <div onClick={toggleLike} className="frc">
             <CurationActionBarButton>
-              <i className={"material-icons text-3xl"}>{"thumb_up"}</i>
-              <p className="text-xl">{"Like"}</p>
+              <i className={"material-icons icon-size"}>{"thumb_up"}</i>
+              <p className="icon-label-size">{"Like"}</p>
             </CurationActionBarButton>
           </div>
         ) : (
           <div onClick={toggleLike} className="frc">
             <CurationActionBarButton>
-              <i className={"material-icons-outlined text-3xl"}>{"thumb_up"}</i>
-              <p className="text-xl">{"Unlike"}</p>
+              <i className={"material-icons-outlined icon-size"}>
+                {"thumb_up"}
+              </i>
+              <p className="icon-label-size">{"Unlike"}</p>
             </CurationActionBarButton>
           </div>
         )}
@@ -135,8 +137,8 @@ const CurationActionBar = ({
           <div className="frc">
             <button onClick={editHandler}>
               <CurationActionBarButton>
-                <i className={"material-icons text-3xl"}>{"edit"}</i>
-                <p className="text-xl">{"Edit"}</p>
+                <i className={"material-icons icon-size"}>{"edit"}</i>
+                <p className="icon-label-size">{"Edit"}</p>
               </CurationActionBarButton>
             </button>
           </div>
@@ -146,12 +148,12 @@ const CurationActionBar = ({
           <CurationActionBarButton key="more_horiz">
             <i
               className={
-                "material-icons text-3xl flex justify-center items-center"
+                "material-icons icon-size flex justify-center items-center"
               }
             >
               {"more_horiz"}
             </i>
-            <p className="text-xl"></p>
+            <p className="icon-label-size"></p>
             <div className="relative">
               {dropdownOpen && (
                 <>
