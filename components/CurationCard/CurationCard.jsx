@@ -6,6 +6,7 @@ import CurationActionBar from "./CurationActionBar"
 import { cardVariants } from "../global/cardVariants"
 import getUrlFromCurationId from "../../services/Hooks/makeUrlFromCurationId"
 import isMobileBrowser from "../../services/Hooks/isMobileBrowser"
+import DateTimeFormat from "../common/DateTimeFormat"
 
 const CurationCard = ({ curation, deleteHandler, editHandler }) => {
   const [isSaved, setIsSaved] = useState(false)
@@ -35,10 +36,10 @@ const CurationCard = ({ curation, deleteHandler, editHandler }) => {
           {curation.title}
         </h1>
         <h2 className="flex items-center justify-start text-lg font-semibold">
-          {curation.createdAt} | {likes}{" "}
+          <DateTimeFormat dateParam={curation.created_at} /> &nbsp; | {likes}{" "}
           <span className="m-2 text-lg material-icons">thumb_up</span>
         </h2>
-        <div className="text-lg">
+        <div className="default-text">
           {curation.description &&
           curation.description.length > maxDescLength ? (
             <p>{curation.description.substring(0, maxDescLength)}...</p>

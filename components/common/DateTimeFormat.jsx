@@ -7,7 +7,10 @@ function DateTimeFormat({ dateParam }) {
   }
 
   const dateNowNum = Date.now()
-  const dateNum = Date.parse(dateParam)
+  let dateNum = dateParam
+  if (Date.parse(dateParam)) {
+    dateNum = Date.parse(dateParam)
+  }
   const difference = dateNowNum - dateNum
 
   if (difference < 86400000) {
