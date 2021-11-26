@@ -77,7 +77,7 @@ function CurationPage({ curation }) {
 
   useEffect(() => {
     if (curation != null) {
-      setLikes(curation.likeCount)
+      setLikes(curation.like_count)
       curation.blocks.sort((a, b) => {
         return a.index - b.index
       })
@@ -118,19 +118,19 @@ function CurationPage({ curation }) {
             <div className="flex flex-col items-start justify-start p-4 space-y-8 lg:ml-20 lg:px-4 text-primary lg:mr-96">
               <div>
                 <h1 className="heading">{curation.title}</h1>
-                {/* <div className="flex flex-col p-2 my-2 text-xl rounded-md w-max lg:text-2xl lg:flex-row text-primary font-noto-serif secondary-hover">
+                <div className="flex flex-col p-2 my-2 text-xl rounded-md w-max lg:text-2xl lg:flex-row text-primary font-noto-serif secondary-hover">
                   <p>
                     By{" "}
-                    <Link href={`/user/${curation.createdBy.id}`}>
-                    {curation.createdBy.username}
-                  </Link>
+                    <Link href={`/user/${curation.created_by.id}`}>
+                      {curation.created_by.username}
+                    </Link>
                   </p>
-                </div> */}
+                </div>
               </div>
 
               <div className="w-full h-auto p-4 space-y-2 text-sm rounded-md lg:text-xl text-primary bg-block">
                 <h2 className="flex items-center justify-start text-lg font-semibold">
-                  <DateTimeFormat dateParam={curation.createdAt} /> &nbsp;|{" "}
+                  <DateTimeFormat dateParam={curation.created_at} /> &nbsp;|{" "}
                   {likes}
                   <span className="m-2 text-lg material-icons">thumb_up</span>
                 </h2>
@@ -146,7 +146,7 @@ function CurationPage({ curation }) {
                       {curation.description.length > shortLength && (
                         <div
                           onClick={toggleDesc}
-                          className="flex justify-center w-full pt-1 text-xl lg:text-2xl"
+                          className="flex justify-center w-full pt-1 default-text"
                         >
                           {descToggle ? (
                             <i className="p-1 rounded-md lni lni-arrow-down-circle primary-hover "></i>
