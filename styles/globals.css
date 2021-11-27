@@ -36,6 +36,10 @@
     @apply w-full p-4 my-2;
   }
 
+  .default-text {
+    @apply text-lg lg:text-xl;
+  }
+
   .primary-hover {
     @apply transition-all duration-300 bg-block hover:bg-hover;
   }
