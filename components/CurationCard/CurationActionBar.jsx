@@ -16,10 +16,10 @@ const CurationActionBar = ({
   curation,
   deleteHandler,
   editHandler,
+  isAuthor = true,
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
-  const [isAuthor, setIsAuthor] = useState(true)
-  const [isLiked, setIsLiked] = useState(false)
+  const [isLiked, setIsLiked] = useState(true)
   const [linkHoverText, setLinkHoverText] = useState("Click to Copy")
 
   const router = useRouter()
@@ -158,15 +158,17 @@ const CurationActionBar = ({
               {dropdownOpen && (
                 <>
                   <Dropdown icon="delete" iconClass="material-icons">
-                    <button onClick={deleteHandler}>
-                      <DropdownItem
-                        icon={"delete"}
-                        iconClass={"material-icons"}
-                      >
-                        {" "}
-                        Delete{" "}
-                      </DropdownItem>
-                    </button>
+                    {isAuthor && (
+                      <button onClick={deleteHandler}>
+                        <DropdownItem
+                          icon={"delete"}
+                          iconClass={"material-icons"}
+                        >
+                          {" "}
+                          Delete{" "}
+                        </DropdownItem>
+                      </button>
+                    )}
                     <DropdownItem
                       icon={"settings"}
                       iconClass={"material-icons"}
