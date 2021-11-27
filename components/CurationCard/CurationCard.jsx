@@ -54,6 +54,7 @@ const CurationCard = ({ curation, deleteHandler, editHandler }) => {
         curation={curation}
         editHandler={editHandler}
         deleteHandler={deleteHandler}
+        isAuthor={true}
       />
     </motion.div>
   )

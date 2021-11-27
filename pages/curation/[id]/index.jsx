@@ -17,13 +17,12 @@ function CurationPage({ curation }) {
   const [likes, setLikes] = useState(0)
   const [blocksData, setBlocksData] = useState()
   const [descToggle, setDescToggle] = useState(true)
-
-  const router = useRouter()
+  const [isAuthor, setIsAuthor] = useState(false)
 
   const curationDummy = {
     id: 1,
-    createdAt: "2021-11-12T20:14:39.878Z",
-    updatedAt: "2021-11-12T20:14:39.878Z",
+    created_at: "2021-11-12T20:14:39.878Z",
+    updated_at: "2021-11-12T20:14:39.878Z",
     title: "A Sample Curation",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eget arcu dictum varius duis at consectetur lorem donec. Enim nunc faucibus a pellentesque sit. Et ultrices neque ornare aenean. Ut tristique et egestas quis ipsum. Dictumst vestibulum rhoncus est pellentesque elit. At in tellus integer feugiat scelerisque. Pellentesque habitant morbi tristique senectus et netus et. In vitae turpis massa sed. At augue eget arcu dictum varius duis at. Ut ornare lectus sit amet. Nunc id cursus metus aliquam eleifend mi in nulla posuere. Mattis nunc sed blandit libero. Arcu dictum varius duis at consectetur lorem. Sapien nec sagittis aliquam malesuada. Volutpat odio facilisis mauris sit amet. Sed ullamcorper morbi tincidunt ornare massa eget egestas. Sapien et ligula ullamcorper malesuada proin libero nunc consequat. Varius vel pharetra vel turpis nunc. Eget gravida cum sociis natoque penatibus. Egestas egestas fringilla phasellus faucibus scelerisque eleifend. Pulvinar elementum integer enim neque. Sit amet est placerat in egestas. Sed libero enim sed faucibus. Volutpat consequat mauris nunc congue nisi vitae suscipit tellus mauris. Rutrum tellus pellentesque eu tincidunt. Elementum eu facilisis sed odio. Gravida rutrum quisque non tellus orci ac auctor augue.",
@@ -35,7 +34,7 @@ function CurationPage({ curation }) {
         curation: {},
       },
     ],
-    createdBy: {
+    created_by: {
       id: "1",
       createdAt: "2021-11-12T20:14:39.878Z",
       email: "username@email.com",
@@ -83,6 +82,11 @@ function CurationPage({ curation }) {
       })
       setBlocksData(curation.blocks)
       setIsLoading(false)
+
+      const username = sessionStorage.getItem("username")
+      if (username == curation.created_by.username) {
+        setIsAuthor(true)
+      }
     }
     // End Loading after 5secs
     setTimeout(() => {
@@ -143,17 +147,20 @@ function CurationPage({ curation }) {
                             ? "..."
                             : "")
                         : curation.description}
-                      {curation.description.length > shortLength && (
-                        <div
+                      {descToggle ? (
+                        <strong
                           onClick={toggleDesc}
-                          className="flex justify-center w-full pt-1 default-text"
+                          className="px-1 rounded-sm primary-hover"
                         >
-                          {descToggle ? (
-                            <i className="p-1 rounded-md lni lni-arrow-down-circle primary-hover "></i>
-                          ) : (
-                            <i className="p-1 rounded-md lni lni-arrow-up-circle primary-hover "></i>
-                          )}
-                        </div>
+                          Read More
+                        </strong>
+                      ) : (
+                        <strong
+                          onClick={toggleDesc}
+                          className="px-1 rounded-sm primary-hover"
+                        >
+                          Show Less
+                        </strong>
                       )}
                     </p>
                   )}
@@ -162,6 +169,7 @@ function CurationPage({ curation }) {
                   likes={likes}
                   setLikes={setLikes}
                   curation={curation}
+                  isAuthor={isAuthor}
                 />
               </div>
 
