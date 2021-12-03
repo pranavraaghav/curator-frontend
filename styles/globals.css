@@ -35,4 +35,24 @@
   .form-text {
     @apply w-full p-4 my-2;
   }
+
+  .default-text {
+    @apply text-lg lg:text-xl;
+  }
+
+  .primary-hover {
+    @apply transition-all duration-300 bg-block hover:bg-hover;
+  }
+
+  .secondary-hover {
+    @apply transition-all duration-300 bg-hover hover:bg-block;
+  }
+
+  .icon-size {
+    @apply text-2xl lg:text-3xl;
+  }
+
+  .icon-label-size {
+    @apply hidden text-xl lg:block;
+  }
 }

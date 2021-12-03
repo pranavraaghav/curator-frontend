@@ -12,7 +12,7 @@ function BlockCard({ blockData }) {
   const maxDescLength = 320
 
   const handleCopyIconClick = () => {
-    copyToClipboard(blockData.link)
+    copyToClipboard(blockData.url)
     setCopyText("Link Copied!")
     setTimeout(() => {
       setCopyText("Copy to Clipboard")

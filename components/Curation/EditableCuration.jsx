@@ -5,6 +5,7 @@ import { Button, TextField } from "@mui/material"
 import EditableBlockCard from "../Block/EditableBlockCard"
 import { motion, AnimatePresence } from "framer-motion"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd" // Drag and drop stuff
+import { cardVariants } from "../global/cardVariants"
 
 function EditableCuration({ initState, submitHandler }) {
   const [title, setTitle] = useState(initState.title)
@@ -52,7 +53,7 @@ function EditableCuration({ initState, submitHandler }) {
   }
 
   return (
-    <div className=" p-4 w-full flex flex-col items-start space-y-4  ">
+    <div className="flex flex-col items-start w-full p-4 space-y-4 ">
       <div className="space-y-0 card-wrapper">
         {/* Title */}
         {/* <label
@@ -61,15 +62,6 @@ function EditableCuration({ initState, submitHandler }) {
           >
             Title
           </label> */}
-        {/* <input
-            className="text-lg rounded desc form-text"
-            name="title"
-            label="title"
-            type="text"
-            placeholder={"Title"}
-            value={title}
-            onChange={changeTitleHandler}
-          /> */}
 
         <TextField
           className="form-text"
@@ -91,18 +83,6 @@ function EditableCuration({ initState, submitHandler }) {
           >
             Description
           </label> */}
-
-        {/* <textarea
-            variant="outlined"
-            value={description}
-            label="Description"
-            type="text"
-            name="description"
-            placeholder="Describe the curation "
-            className="rounded-md desc form-text"
-            onChange={changeDescriptionHandler}
-            rows={4}
-          /> */}
 
         <TextField
           className="form-text"
@@ -170,12 +150,16 @@ function EditableCuration({ initState, submitHandler }) {
       )}
 
       <div className="items-center justify-center space-y-4 fcc card-wrapper">
-        <div className="hidden card-wrapper frc hover:bg-hover lg:flex">
+        <motion.div
+          variants={cardVariants}
+          whileTap="hop"
+          className="hidden card-wrapper frc hover:bg-hover lg:flex"
+        >
           <Info className="mx-2 text-lg text-secondary lg:text-3xl" />
           <h2 className="desc">
             Re-arrange the blocks by dragging and dropping them by their handles
           </h2>
-        </div>
+        </motion.div>
         <div className="flex flex-row justify-around w-full">
           {/* Button to create new blocks*/}
           <Button
